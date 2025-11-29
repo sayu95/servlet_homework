@@ -24,7 +24,7 @@ public class MediaStreamingServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		//오류를 보낼 상태코드, 기본값은 200
-		int statusCode = resp.SC_OK;
+		int statusCode = HttpServletResponse.SC_OK;
 
 		Gson gson = new Gson();
 
@@ -35,12 +35,12 @@ public class MediaStreamingServlet extends HttpServlet {
 
 		String dirName = data.get("media");
 		String fileName = data.get("data");
-		
+
 		//비동기 통신으로 가져온 dirName, fileName 값이 비어 있을 경우 무조건 오류
 		if (dirName.isEmpty() || fileName.isEmpty()) {
             //필수 데이터가 누락되면 400 에러를 보냅니다.
 			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400
-            
+
             // 클라이언트에게 오류 메시지를 JSON 형태로 보냅니다.
             try (PrintWriter out = resp.getWriter()) {
                 out.print("{\"error\": \"400 Bad Request: media 또는 data 필드가 누락되었습니다.\"}");
@@ -109,7 +109,7 @@ public class MediaStreamingServlet extends HttpServlet {
 					}
 				}
 			}
-			
+
 			// dirName이 movies
 			else if (dirName.equals("movies")) {
 				// 컨탠츠타입 지정
@@ -120,7 +120,7 @@ public class MediaStreamingServlet extends HttpServlet {
 					//파일 copy
 					Files.copy(finalPath, os);
 				}
-				
+
 			// dirName이 icon
 			} else {
 				// 컨탠츠타입 지정

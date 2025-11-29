@@ -68,7 +68,7 @@ public class MediaListJsonServlet extends HttpServlet {
 		// Reader, 제네릭타입이 필요한데 따로 db에서 가져오는것이 아니라
 		// DTO로 받아오지않으며 K(String), V(String)이기 때문에 Map으로 받아온다
 		Map<String, String> dir = gson.fromJson(req.getReader(), Map.class);
-		
+
 		// 키를 이용해 해당값을 가져온다.
 		String dirName = dir.get("directory");
 

@@ -17,7 +17,7 @@ public class Server extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	      Date now = new Date();
-	      
+
 	      //키 "now" : value now
 	      Map<String, Date> nativeDate = Map.of("now", now);
 	      String json = new Gson().toJson(nativeDate);

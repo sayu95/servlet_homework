@@ -25,31 +25,31 @@ public class HeaderServlet extends HttpServlet{
 				.create("https://developer.mozilla.org/ko/docs/Web/HTTP/Reference/Headers");
 		HttpClient client = HttpClient.newHttpClient();
 		HttpRequest mediaReq = HttpRequest.newBuilder().uri(mediaURI).GET().build();
-		
+
 		try {
 			HttpResponse<String> mediaResp = client.send(mediaReq, BodyHandlers.ofString());
 			String html = mediaResp.body();
 			Document document = Jsoup.parse(html);
 
-			String iconAbbrSelector = 
+			String iconAbbrSelector =
                 "abbr[title*=\"Experimental\"], abbr[title*=\"지원이 중단되었습니다\"], abbr[title*=\"비표준\"]";
-			
-			String unwantedItemSelector = 
+
+			String unwantedItemSelector =
 			    "li:has(" + iconAbbrSelector + "), " +
 			    "dt:has(" + iconAbbrSelector + "), " +
 			    "dt:has(" + iconAbbrSelector + ") + dd";
-			
+
 			document.select(unwantedItemSelector).remove();
 
 			String bodySelector = ".reference-layout__body";
 			Elements elementBody = document.select(bodySelector);
-			
+
 			resp.setContentType("text/html");
             resp.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
             resp.setHeader("Pragma", "no-cache");
-            
+
 			resp.getWriter().write(elementBody.outerHtml());
-			
+
 		} catch (IOException | InterruptedException e) {
 		    throw new IOException(e);
 		}
