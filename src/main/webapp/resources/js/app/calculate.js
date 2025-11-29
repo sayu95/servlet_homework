@@ -1,5 +1,5 @@
 const content = document.getElementById('content');
-const btn1 = document.querySelector('#button');
+const btn1 = document.querySelector('#btn');
 const btn2 = document.querySelector('button[type="submit"]');
 const uri = "../../calc/calculate";
 

@@ -20,7 +20,7 @@ input {
 		<input id="left" type="text" placeholder="숫자를 입력하세요"/>
 		<input id="operator" type="text" placeholder="연산자를 입력하세요"/> 
 		<input id="right" type="text" placeholder="숫자를 입력하세요"/>
-		<button id="button" onclick="send()">계산하기</button>
+		<button id="btn">계산하기</button>
 	</div>
 	
 <!-- form 태그로 해보기 -->
