@@ -33,7 +33,7 @@ function sendRequest(Data, targetElement) {
 			headers: {
 				//헤더에 Accept를 담아 보낸다.
 				'Accept': accept,
-				'Content-Type': "text/plain"
+				'Content-Type': accept
 			}
 		}).then(resp => resp.text())
 			.then(resp => targetElement.innerHTML = resp)
@@ -41,13 +41,12 @@ function sendRequest(Data, targetElement) {
 	}
 	else {
 		//만약 text/html이라면 POST으로 JSON을 보낸다.
-		console.log(Data);
 		fetch(uri, {
 			method: 'POST',
 			headers: {
 				//헤더에 Accept를 담아 보낸다.
 				'Accept': accept,
-				'Content-Type': 'application/json'
+				'Content-Type': accept
 			},
 			//POST는 body가 존재하기에 바디에 JSON 데이터를 담아보낸다.
 			body: JSON.stringify(Data)

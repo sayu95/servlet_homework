@@ -20,7 +20,7 @@
 	<label><input type="radio" name="accept" value="html" checked />HTML</label>
 	<label><input type="radio" name="accept" value="json" />JSON</label>
 	
-	<form action="${pageContext.request.contextPath}/calc/calculate"
+	<form action="${pageContext.request.contextPath}/calc/calculate2"
 		method="GET">
 		<input class="ipt" name="left" type="text" placeholder="숫자를 입력하세요" />
 		<input class="ipt" name="operator" type="text" placeholder="연산자를 입력하세요" /> 

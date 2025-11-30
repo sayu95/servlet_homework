@@ -75,8 +75,8 @@ public class CalculateServlet2 extends HttpServlet {
 		// 미리 요청 헤더의 Accept하고 응답에 대한 Accept을 정한다.
 		String contentType = req.getContentType();
 		String accept = req.getHeader("Accept");
-		System.out.println(contentType);
-		System.out.println(accept);
+		System.out.println("ContentType : "+contentType);
+		System.out.println("Accept : "+accept);
 
 		// 응답 컨탠츠 타입은 요청 헤더의 컨탠츠 타입을 확인하고 PrintWriter를 열기 전에 미리 한다.
 		resp.setContentType("text/html;charset=UTF-8");
@@ -145,8 +145,8 @@ public class CalculateServlet2 extends HttpServlet {
 		// 미리 요청 헤더의 Accept하고 응답에 대한 Accept을 정한다.
 		String contentType = req.getContentType();
 		String accept = req.getHeader("Accept");
-		System.out.println(contentType);
-		System.out.println(accept);
+		System.out.println("ContentType : "+contentType);
+		System.out.println("Accept : "+accept);
 		
 		// 응답 컨탠츠 타입은 요청 헤더의 컨탠츠 타입을 확인하고 PrintWriter를 열기 전에 미리 한다.
 		resp.setContentType("applicaion/json;charset=UTF-8");
