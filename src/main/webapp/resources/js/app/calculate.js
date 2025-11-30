@@ -3,6 +3,20 @@ const btn1 = document.querySelector('#btn');
 const btn2 = document.querySelector('button[type="submit"]');
 const uri = "../../calc/calculate";
 
+// ID로 가져오는 데이터 소스
+const idSelectors = {
+    getLeft: () => document.getElementById('left').value,
+    getOperator: () => document.getElementById('operator').value,
+    getRight: () => document.getElementById('right').value,
+};
+
+// name으로 가져오는 데이터 소스
+const nameSelectors = {
+    getLeft: () => document.querySelector('input[name="left2"]').value,
+    getOperator: () => document.querySelector('input[name="operator2"]').value,
+    getRight: () => document.querySelector('input[name="right2"]').value,
+};
+
 //객체 구조 분해 사용으로 함수 호출부분 줄이기
 function makequeryString({ left, operator, right }) {
 	//여러개의 데이터를 쿼리스트링으로 보내야하니 객체화
@@ -27,20 +41,6 @@ function sendRequest(queryString, targetElement) {
 		.then(result => targetElement.innerHTML = result)
 		.catch(error => targetElement.innerHTML = "오류 발생: " + error.message);
 }
-
-// ID로 가져오는 데이터 소스
-const idSelectors = {
-    getLeft: () => document.getElementById('left').value,
-    getOperator: () => document.getElementById('operator').value,
-    getRight: () => document.getElementById('right').value,
-};
-
-// name으로 가져오는 데이터 소스
-const nameSelectors = {
-    getLeft: () => document.querySelector('input[name="left2"]').value,
-    getOperator: () => document.querySelector('input[name="operator2"]').value,
-    getRight: () => document.querySelector('input[name="right2"]').value,
-};
 
 function handleCalculation(sourceSelectors, targetElement) {
     
