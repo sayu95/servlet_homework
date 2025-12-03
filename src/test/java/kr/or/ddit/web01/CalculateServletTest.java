@@ -199,7 +199,7 @@ class CalculateServletTest {
 		// 검증
 		Mockito.verify(response).setStatus(HttpServletResponse.SC_OK);
 	}
-	
+
 	// 나누기 테스트코드
 		@Test
 		void MOD() throws ServletException, IOException {
@@ -245,18 +245,18 @@ class CalculateServletTest {
 			// 검증
 			Mockito.verify(response).setStatus(HttpServletResponse.SC_OK);
 		}
-		
+
 		@Test
 		void DivideByZero() throws ServletException, IOException {
 		    HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
 		    HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
 		    StringWriter stringWriter = new StringWriter();
 		    PrintWriter writer = new PrintWriter(stringWriter);
-		    
+
 		    when(response.getWriter()).thenReturn(writer);
 
 		    when(request.getParameter("left")).thenReturn("10");
-		    when(request.getParameter("right")).thenReturn("0"); 
+		    when(request.getParameter("right")).thenReturn("0");
 		    when(request.getParameter("operator")).thenReturn("/"); // 또는 "%"
 
 		    CalculateServlet servlet = new CalculateServlet();
@@ -264,23 +264,23 @@ class CalculateServletTest {
 
 		    writer.flush();
 		    String output = stringWriter.toString();
-		    
+
 		    // 검증 1: 0 나누기 오류 메시지가 포함되었는지 확인
-		    assertTrue(output.contains("0으로 나눌 수 없습니다."), 
+		    assertTrue(output.contains("0으로 나눌 수 없습니다."),
 		               "응답 본문에 0 나누기 오류 메시지가 포함되어야 합니다.");
-		    
+
 		    // 검증 2: HTTP 상태 코드가 400 BAD REQUEST인지 확인
 		    // NOTE: servlet 코드에서 resp.setStatus(status);를 호출했으므로 setStatus를 검증
 		    Mockito.verify(response).setStatus(HttpServletResponse.SC_BAD_REQUEST);
 		}
-		
+
 		@Test
 		void InvalidOperator() throws ServletException, IOException {
 		    HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
 		    HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
 		    StringWriter stringWriter = new StringWriter();
 		    PrintWriter writer = new PrintWriter(stringWriter);
-		    
+
 		    when(response.getWriter()).thenReturn(writer);
 
 		    when(request.getParameter("left")).thenReturn("10");
@@ -292,27 +292,27 @@ class CalculateServletTest {
 
 		    writer.flush();
 		    String output = stringWriter.toString();
-		    
+
 		    // 검증 1: 연산자 오류 메시지 확인
 		    // (서블릿 코드에 따라 메시지를 "올바른 연산자를 입력해주세요."로 맞추세요)
-		    assertTrue(output.contains("올바른 연산자를 입력해주세요."), 
+		    assertTrue(output.contains("올바른 연산자를 입력해주세요."),
 		               "응답 본문에 올바른 연산자 요청 오류 메시지가 포함되어야 합니다.");
-		    
+
 		    // 검증 2: HTTP 상태 코드가 400 BAD REQUEST인지 확인
 		    Mockito.verify(response).setStatus(HttpServletResponse.SC_BAD_REQUEST);
 		}
-		
+
 		@Test
 		void InvalidNumberFormat() throws ServletException, IOException {
 		    HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
 		    HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
 		    StringWriter stringWriter = new StringWriter();
 		    PrintWriter writer = new PrintWriter(stringWriter);
-		    
+
 		    when(response.getWriter()).thenReturn(writer);
 
 		    // ⬅️ left 파라미터에 숫자가 아닌 문자열 입력
-		    when(request.getParameter("left")).thenReturn("abc"); 
+		    when(request.getParameter("left")).thenReturn("abc");
 		    when(request.getParameter("right")).thenReturn("5");
 		    when(request.getParameter("operator")).thenReturn("+");
 
@@ -321,11 +321,11 @@ class CalculateServletTest {
 
 		    writer.flush();
 		    String output = stringWriter.toString();
-		    
+
 		    // 검증 1: 숫자 형식 오류 메시지 확인
-		    assertTrue(output.contains("숫자를 올바르게 입력해주세요."), 
+		    assertTrue(output.contains("숫자를 올바르게 입력해주세요."),
 		               "응답 본문에 숫자 형식 오류 메시지가 포함되어야 합니다.");
-		    
+
 		    // 검증 2: HTTP 상태 코드가 400 BAD REQUEST인지 확인
 		    Mockito.verify(response).setStatus(HttpServletResponse.SC_BAD_REQUEST);
 		}

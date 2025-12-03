@@ -1,13 +1,11 @@
 package kr.or.ddit.web01;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Optional;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
 
 import jakarta.servlet.ServletException;
@@ -147,7 +145,7 @@ public class CalculateServlet2 extends HttpServlet {
 		String accept = req.getHeader("Accept");
 		System.out.println("ContentType : "+contentType);
 		System.out.println("Accept : "+accept);
-		
+
 		// 응답 컨탠츠 타입은 요청 헤더의 컨탠츠 타입을 확인하고 PrintWriter를 열기 전에 미리 한다.
 		resp.setContentType("applicaion/json;charset=UTF-8");
 
@@ -159,12 +157,12 @@ public class CalculateServlet2 extends HttpServlet {
 			try {
 				// 만들어놓은 Dto로 한번에 역직렬화
 				dto = gson.fromJson(req.getReader(), CalculateServlet2DTO.class);
-				
+
 				//DTO에서 해당 값들을 가져온다.
 				double left = dto.getLeft();
 				String operator = dto.getOperator();
 				double right = dto.getRight();
-				
+
 				// 가져온 Operator를 Enum에서 찾기
 				Optional<Operator> operatorOpt = Operator.fromSymbol(operator);
 
@@ -216,25 +214,25 @@ public class CalculateServlet2 extends HttpServlet {
 
 /*
  ************************************************ 기본 연산 ******************************************************
- * 
+ *
  * 프론트단에서 해당 응답이 내가 보내는 데이터는 text이면서 HTML이고, UTF-8로 인코딩되어 있다고 알려줌
  * resp.setContentType("text/html; charset=UTF-8");
- * 
+ *
  * 향상된 try문으로 out을 다 쓰면 자동으로 반환
- * 
+ *
  * try (PrintWriter out = resp.getWriter()) { //switch문으로 가져온 operator의 값으로 연산을
  * 함
- * 
+ *
  * switch (operator) { case "+": out.print(num1 + num2); break;
- * 
+ *
  * case "-": out.print(num1 - num2); break;
- * 
+ *
  * case "*": out.print(num1 * num2); break;
- * 
+ *
  * case "/": out.print(num1 / num2); break;
- * 
+ *
  * case "%": out.print(num1 % num2); break;
- * 
+ *
  * default: status = resp.SC_BAD_REQUEST; resp.sendError(status,
  * "요청 구문 오류: operator 파라미터를 확인하세요.");
  */
