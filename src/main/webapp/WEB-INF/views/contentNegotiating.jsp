@@ -18,10 +18,8 @@
 		value="application/json" data-fn-name="renderJson" />JSON</label>
 	<select>
 		<option value="">🌎 언어/지역 선택 (본인 언어로) --</option>
-
 		<c:forEach var="locale" items="${requestScope.localeList}">
 			<c:set var="country" value="${locale.getDisplayCountry(locale)}" />
-
 			<option value="${locale.toLanguageTag()}">
 				<c:out value="${country}" />
 			</option>
