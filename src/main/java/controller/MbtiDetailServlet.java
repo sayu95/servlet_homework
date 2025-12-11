@@ -43,6 +43,7 @@ public class MbtiDetailServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("doget 수신완료");
 		String mbtiURI = (String) application.getAttribute("mbtiURI");
 		String mbti = Optional.ofNullable(req.getParameter("mbti"))
 				.filter(Predicate.not(String::isEmpty))

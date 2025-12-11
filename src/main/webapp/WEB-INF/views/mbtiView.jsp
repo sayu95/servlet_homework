@@ -14,13 +14,13 @@
 				<option value="${entry.key }">${entry.key.toUpperCase() }</option>
 			</c:forEach>
 		</select>
-		<button type="submit">전송</button>
+		<button type="submit" id="transfer">전송</button>
 	</form>
 	<form method="post" enctype="multipart/form-data"
 	    data-context-path="<c:url value='/mbti'/>">
 		<input type="text" name="mtType" placeholder="entj" />
 		<input type="file" name="mtFile" placeholder="entj.html"/>
-		<button type="submit" id="btn">업로드</button>
+		<button type="submit" id="upload">업로드</button>
 	</form>
 	<script type="text/javascript" src='<c:url value="/resources/js/app/mbti.js"/>'></script>
 </body>

@@ -1,7 +1,24 @@
  document.addEventListener("DOMContentLoaded", () => {
-	const btn = document.getElementById("btn");
 	
-	btn.addEventListener("click", (e) => {
+	const transfer = document.getElementById("transfer")
+	const upload = document.getElementById("upload");
+	
+	
+	//전송
+	transfer.addEventListener("click", (e) => {
+		e.preventDefault();
+		
+		const formData = new FormData(document.forms[0]);
+		const url = document.forms[0].action;
+		const mbti = formData.get('mbti');
+		console.log(mbti);
+		fetch(`${url}?mbti=${mbti}`, {
+			method : "GET"
+		})
+	}),
+	
+	//업로드
+	upload.addEventListener("click", (e) => {
 		e.preventDefault();
 		
 		const formData = new FormData(document.forms[1]);
@@ -14,6 +31,7 @@
 			method : "POST",
 			body: formData
 		})
-
 	})
+	
+	
  })
