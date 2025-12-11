@@ -22,6 +22,7 @@
 		<input type="file" name="mtFile" placeholder="entj.html"/>
 		<button type="submit" id="upload">업로드</button>
 	</form>
+	<div id="content"></div>
 	<script type="text/javascript" src='<c:url value="/resources/js/app/mbti.js"/>'></script>
 </body>
 </html>

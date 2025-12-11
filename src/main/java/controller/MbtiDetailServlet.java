@@ -53,6 +53,8 @@ public class MbtiDetailServlet extends HttpServlet {
 
 		String filename = mbtiMap.get(mbti);
 		String view = mbtiURI + filename;
+		
+		System.out.println(view);
 
 		if (status != 200)
 			resp.sendError(status);

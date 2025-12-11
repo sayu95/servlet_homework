@@ -2,6 +2,7 @@
 	
 	const transfer = document.getElementById("transfer")
 	const upload = document.getElementById("upload");
+	const content = document.getElementById("content");
 	
 	
 	//전송
@@ -14,7 +15,8 @@
 		console.log(mbti);
 		fetch(`${url}?mbti=${mbti}`, {
 			method : "GET"
-		})
+		}).then(res => res.text())
+		.then(res => content.innerHTML = res)
 	}),
 	
 	//업로드
