@@ -1,6 +1,7 @@
 package calendar;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.Month;
 import java.time.Year;
 import java.time.YearMonth;
@@ -23,7 +24,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/calendar")
-public class YearMonthServlet extends HttpServlet {
+public class CalenderServlet extends HttpServlet {
 
 	/**
 	 * 1. 클라이언트는 년도를 선택해야한다. 2. 클라이언트는 제공되는 월을 선택해야한다. 3. 클라이언트는 제공되는 나라목록을 나라를
@@ -32,11 +33,20 @@ public class YearMonthServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		
 		// Controller : 데이터를 받고 데이터를 검증하고 검증된 데이터를 전달한다.
 		// 클라이언트가 원하는 시간
 		ZoneId zoneId = Optional.ofNullable(req.getParameter("timeZone")).filter(Predicate.not(String::isBlank))
 				.map(ZoneId::of).orElse(ZoneId.systemDefault());
+		
+		LocalDate todayInZone = LocalDate.now(zoneId); 
+		int todayDayInZone = todayInZone.getDayOfMonth(); // 1~31
+		int todayMonthInZone = todayInZone.getMonthValue(); // 1~12
+		int todayYearInZone = todayInZone.getYear();       // 2025
+
+		req.setAttribute("todayDayInZone", todayDayInZone);
+		req.setAttribute("todayMonthInZone", todayMonthInZone);
+		req.setAttribute("todayYearInZone", todayYearInZone);
 
 		// 클라이언트가 원하는 년도
 		int year = Optional.ofNullable(req.getParameter("year"))

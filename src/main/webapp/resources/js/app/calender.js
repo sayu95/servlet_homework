@@ -1,17 +1,9 @@
-/**
- * 
- */
-
- document.addEventListener("DOMContentLoaded", () => {
-	const year = document.querySelector("[name=year]");
-	const month = document.querySelector("[name=month]");
-	const locale = document.querySelector("[name=locale]");
-	const zoneId = document.querySelector("[name=zoneId]");
-	
+document.addEventListener("DOMContentLoaded", () => {
 	const formElement = document.forms[0];
-	locale.addEventListener("change", () => {
-		formElement.requestSubmit();
+    
+	document.addEventListener("change", (e) => {
+        if (e.target && e.target.name !== 'month' && e.target.name !== 'year') {
+		    formElement.requestSubmit();
+        }
 	})
  })
- 
- 
