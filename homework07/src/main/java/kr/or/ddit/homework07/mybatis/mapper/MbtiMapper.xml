@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.homework07.mbti.mapper.MbtiMapper">
+	<select id="mbtiSelectAll"
+		resultType="kr.or.ddit.homework07.mbti.dto.MbtiDTO">
+		SELECT
+			MT_SORT,
+			MT_TYPE,
+			MT_TITLE,
+			MT_CONTENT
+		FROM TB_MBTIDESC
+	</select>
+
+	<select id="mbtiSelectOne" parameterType="String" resultType="kr.or.ddit.homework07.mbti.dto.MbtiDTO">
+		SELECT
+			MT_SORT,
+			MT_TYPE,
+			MT_TITLE,
+			MT_CONTENT
+		FROM TB_MBTIDESC
+		WHERE MT_TYPE = #{mtType}
+	</select>
+
+	<insert id="mbtiCreate" parameterType="kr.or.ddit.homework07.mbti.dto.MbtiDTO">
+		INSERT INTO TB_MBTIDESC (  
+    		MT_SORT,              
+   			MT_TYPE,
+    		MT_TITLE,
+   	 		MT_CONTENT
+   	 	)
+   	 	VALUES (
+   	 		SEQ_MBTI.NEXTVAL,
+    		#{mtType},                
+    		#{mtTitle},
+    		#{mtContent}
+    	)
+	</insert>
+	
+	<update id="mbtiUpdate" parameterType="kr.or.ddit.homework07.mbti.dto.MbtiDTO">
+		UPDATE TB_MBTIDESC 
+		SET MT_TITLE = #{mtTitle}, 
+			MT_CONTENT = #{mtContent}
+		WHERE MT_TYPE = #{mtType}
+	</update>
+	
+	<delete id="mbtiDelete" parameterType="String">
+		DELETE FROM TB_MBTIDESC
+		WHERE MT_TYPE = #{mtType}
+	</delete>
+</mapper>

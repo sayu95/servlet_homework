@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<!-- mybatis설정에 참고할 properties resource 위치 설정 -->
+<properties resource="kr/or/ddit/db/DBInfo.properties"/>
+<settings>
+	<!-- mybatis에게 Parameter Placeholder안의 CamelCase를 DB의 Snake Case과 일치하게 설정 -->
+	<setting name="mapUnderscoreToCamelCase" value="true"/>
+</settings>
+  <environments default="dev">
+    <environment id="dev">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="${driverClassName}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${user}"/>
+        <property name="password" value="${password}"/>
+        <property name="poolMaximumActiveConnections" value="${maximumPoolSize}"/>
+        <property name="poolMaximumIdleConnections" value="${minimumIdle}"/>
+        <property name="poolTimeToWait" value="${connectionTimeout}"/>
+      </dataSource>
+    </environment>
+  </environments>
+  
+  <!-- sql문을 정의할 xml문서의 위치를 mybatis에게 알려줌 -->
+  <mappers> <mapper resource="kr/or/ddit/homework07/mybatis/mapper/MbtiMapper.xml"/></mappers>
+  
+</configuration>
