@@ -5,26 +5,29 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>주소록 관리 시스템 (RESTful)</title>
+<title>주소록</title>
 <style>
-    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-    th, td { border: 1px solid black; padding: 5px; text-align: center; }
+    table, th, td { border: 1px solid black; border-collapse: collapse; }
+    th, td { padding: 5px; }
+    .error { color: red; font-size: 0.9em; }
     .edit-mode { display: none; }
-    .search-area { text-align: right; margin-bottom: 5px; }
-    .register-area { margin-top: 20px; border-top: 1px solid #ccc; padding-top: 10px; }
 </style>
 </head>
 <body data-bpath="${path}">
 
-    <h1>주소록 관리</h1>
+    <h2>주소록 목록</h2>
 
-    <div class="search-container">
-        <form action="${path}/address" method="get">
-            <input type="text" name="searchName" placeholder="이름으로 검색" value="${param.searchName}">
-            <button type="submit" class="btn btn-edit">검색</button>
-            <a href="${path}/address" class="btn btn-cancel" style="text-decoration:none;">초기화</a>
-        </form>
-    </div>
+    <c:if test="${not empty message}">
+        <p style="color: blue; font-weight: bold;">알림: ${message}</p>
+    </c:if>
+
+    <form action="/address" method="get">
+        <input type="text" name="searchName" placeholder="이름 검색" value="${param.searchName}">
+        <button type="submit">검색</button>
+        <a href="/address">초기화</a>
+    </form>
+
+    <br>
 
     <table>
         <thead>
@@ -55,31 +58,43 @@
                                 <input type="text" class="edit-mode in-mail" value="${addr.adrsMail}">
                             </td>
                             <td>
-                                <button type="button" class="btn btn-edit view-mode" onclick="toggleEdit(this)">수정</button>
-                                <button type="button" class="btn btn-save edit-mode" onclick="saveEdit(this)">저장</button>
-                                <button type="button" class="btn btn-cancel edit-mode" onclick="cancelEdit(this)">취소</button>
-                                <button type="button" class="btn btn-del" onclick="deleteAddress(this)">삭제</button>
+                                <button type="button" class="view-mode" onclick="toggleEdit(this)">수정</button>
+                                <button type="button" class="edit-mode" onclick="saveEdit(this)">저장</button>
+                                <button type="button" class="edit-mode" onclick="cancelEdit(this)">취소</button>
+                                <button type="button" onclick="deleteAddress(this)">삭제</button>
                             </td>
                         </tr>
                     </c:forEach>
                 </c:when>
                 <c:otherwise>
-                    <tr><td colspan="6">${message}</td></tr>
+                    <tr><td colspan="6">데이터가 없습니다.</td></tr>
                 </c:otherwise>
             </c:choose>
         </tbody>
     </table>
 
-    <div class="section-box">
-        <h3>+ 새 주소 등록</h3>
-        <form action="${path}/address" method="post">
-            <input type="text" name="adrsName" placeholder="이름(필수)" required>
-            <input type="text" name="adrsTel" placeholder="전화번호(필수)" required>
-            <input type="text" name="adrsAdd" placeholder="주소">
-            <input type="email" name="adrsMail" placeholder="이메일">
-            <button type="submit" class="btn btn-save">신규 등록</button>
-        </form>
-    </div>
+    <hr>
+
+    <h3>새 주소 등록</h3>
+    <form action="/address" method="post">
+        <div>
+            이름: <input type="text" name="adrsName" value="${address.adrsName}">
+            <span class="error">${errors.adrsName}</span>
+        </div>
+        <div>
+            전화: <input type="text" name="adrsTel" value="${address.adrsTel}">
+            <span class="error">${errors.adrsTel}</span>
+        </div>
+        <div>
+            주소: <input type="text" name="adrsAdd" value="${address.adrsAdd}">
+        </div>
+        <div>
+            메일: <input type="text" name="adrsMail" value="${address.adrsMail}">
+            <span class="error">${errors.adrsMail}</span>
+        </div>
+        <button type="submit">등록</button>
+    </form>
+
+  <script src="<c:url value='/resources/js/address.js'/>"></script>
 </body>
-<script type="text/javascript" src="<c:url value='/resources/js/address.js'/>"></script>
 </html>

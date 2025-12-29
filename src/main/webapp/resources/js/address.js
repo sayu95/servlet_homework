@@ -11,8 +11,8 @@ async function sendRequest(url, method, successMsg) {
             alert(successMsg);
             location.reload();
         } else {
-            const errorMsg = await resp.text();
-            alert("요청 실패: " + (errorMsg || resp.statusText));
+           	const errorMsg = await resp.text();
+            alert("검증 실패: " + (errorMsg || "알 수 없는 에러"));
         }
     } catch (error) {
         console.error("Error:", error);
